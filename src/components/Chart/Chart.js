@@ -3,16 +3,20 @@ import { defaultMinSockets } from "forever-agent";
 import React from "react";
 
 import ChartBar from "./ChartBar";
-import "./ChartBar.css";
+import "./Chart.css";
 
-const Chart = () => {
+const Chart = (props) => {
+  const dataPointsValues = props.dataPoints.map((dataPoint) => dataPoint.value);
+  const totalMaximum = Math.max(...dataPointsValues);
+
   return (
     <div className="chart">
       {props.dataPoints.map((dataPoint) => (
         <ChartBar
+          key={dataPoint.label}
           value={dataPoint.value}
-          maxValue={null}
-          lable={dataPoint.label}
+          maxValue={totalMaximum}
+          label={dataPoint.label}
         />
       ))}
     </div>
